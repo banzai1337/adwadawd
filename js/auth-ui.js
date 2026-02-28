@@ -76,3 +76,83 @@
     window.location.href = "index.html";
   });
 })();
+
+(function initMobileHeaderMenu() {
+  const header = document.querySelector(".site-header");
+  if (!header) {
+    return;
+  }
+
+  const headerInner = header.querySelector(".header-inner");
+  const mainNav = header.querySelector(".main-nav");
+  if (!headerInner || !mainNav) {
+    return;
+  }
+
+  if (!mainNav.id) {
+    mainNav.id = "siteMainNav";
+  }
+
+  let toggleButton = header.querySelector(".mobile-menu-toggle");
+  if (!toggleButton) {
+    toggleButton = document.createElement("button");
+    toggleButton.type = "button";
+    toggleButton.className = "mobile-menu-toggle";
+    toggleButton.setAttribute("aria-label", "Открыть меню");
+    toggleButton.setAttribute("aria-expanded", "false");
+    toggleButton.setAttribute("aria-controls", mainNav.id);
+    toggleButton.innerHTML =
+      '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+
+    const logo = header.querySelector(".logo");
+    if (logo) {
+      headerInner.insertBefore(toggleButton, logo);
+    } else {
+      headerInner.prepend(toggleButton);
+    }
+  }
+
+  function closeMenu() {
+    header.classList.remove("is-menu-open");
+    toggleButton.setAttribute("aria-expanded", "false");
+  }
+
+  toggleButton.addEventListener("click", () => {
+    const isOpen = header.classList.toggle("is-menu-open");
+    toggleButton.setAttribute("aria-expanded", String(isOpen));
+  });
+
+  mainNav.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", closeMenu);
+  });
+
+  document.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof Node)) {
+      return;
+    }
+
+    if (!header.contains(target)) {
+      closeMenu();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeMenu();
+    }
+  });
+
+  const mediaQuery = window.matchMedia("(min-width: 761px)");
+  const handleDesktopView = (event) => {
+    if (event.matches) {
+      closeMenu();
+    }
+  };
+
+  if (typeof mediaQuery.addEventListener === "function") {
+    mediaQuery.addEventListener("change", handleDesktopView);
+  } else {
+    mediaQuery.addListener(handleDesktopView);
+  }
+})();
