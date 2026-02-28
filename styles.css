@@ -2840,6 +2840,10 @@ textarea::placeholder {
     --header-height: 86px;
   }
 
+  .site-header {
+    position: sticky;
+  }
+
   .header-inner {
     min-height: auto;
     padding: 0.8rem 0;
@@ -2848,7 +2852,8 @@ textarea::placeholder {
 
   .header-actions {
     margin-left: auto;
-    width: 100%;
+    width: auto;
+    max-width: 100%;
     justify-content: flex-end;
   }
 
@@ -2871,7 +2876,11 @@ textarea::placeholder {
   }
 
   .hero {
-    margin-top: 126px;
+    margin-top: 0;
+  }
+
+  .page-main {
+    padding-top: 1rem;
   }
 
   .adv-card,
@@ -2986,16 +2995,24 @@ textarea::placeholder {
   }
 
   .header-actions .btn {
-    width: 100%;
+    width: auto;
   }
 
   .hero {
     min-height: 72vh;
-    margin-top: 134px;
+    margin-top: 0;
   }
 
   .hero-content {
-    padding: 4.2rem 0 3rem;
+    padding: 3.8rem 0 2.8rem;
+  }
+
+  .tour-title {
+    font-size: 1.15rem;
+  }
+
+  .tour-price-value {
+    font-size: 1.8rem;
   }
 
   .tour-content,
@@ -3092,6 +3109,14 @@ textarea::placeholder {
 
   .section-title {
     font-size: 1.4rem;
+  }
+
+  .tour-title {
+    font-size: 1.05rem;
+  }
+
+  .tour-price-value {
+    font-size: 1.6rem;
   }
 
   .tour-card-footer {
